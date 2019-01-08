@@ -14,9 +14,17 @@ var MongoStore = require('connect-mongo')(session);
 var indexRouter = require('./routes/index');
 var userRoutes = require('./routes/user');
 
+var keys = require('./keys.js');
 var app = express();
 
-mongoose.connect('mongodb://sainttobs:H@rmankardon123@ds139614.mlab.com:39614/shopping-cart');
+//DATABASE CONNECTION 
+mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true }).then(
+  function(res){
+   console.log("Connected to Database Successfully.");
+  }
+).catch(function(){
+  console.log("Connection to Database failed.");
+});
 require('./config/passport');
 
 // view engine setup
